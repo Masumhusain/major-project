@@ -13,7 +13,7 @@ const reviewsRoutes = require("./routes/reviews.js");
 const session = require("express-session");
 const flash = require('connect-flash');
 app.use(express.json());
-
+const MongoStore = require('connect-mongo');
 
 // router 
 // app.use("/listings", listings);
@@ -40,15 +40,19 @@ app.use(methodOverride('_method'));
 app.engine("ejs", engine);
 app.use(express.static(path.join(__dirname, "/public")));
 
-const sessionOptions =  {
+const sessionOptions = {
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URL,
+    touchAfter: 24 * 3600 // optional
+  }),
   secret: process.env.SECRET || "mysupersecretcode",
   resave: false,
   saveUninitialized: true,
-  cookie:  {
-    expire: Date.now() + 7 * 24 *60 * 60 * 1000,
+  cookie: {
+    expire: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 1000 * 60 * 60 * 24 * 7,
-    httpOnly: true,
-  }
+    httpOnly: true,
+  }
 };
 
 app.use(session(sessionOptions));
