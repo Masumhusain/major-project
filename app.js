@@ -17,8 +17,7 @@ app.use(express.json());
 
 // router 
 // app.use("/listings", listings);
-
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/wanderlust";
 
 main()
   .then(() => {
@@ -42,7 +41,7 @@ app.engine("ejs", engine);
 app.use(express.static(path.join(__dirname, "/public")));
 
 const sessionOptions =  {
-  secret: "mysupersecretcode",
+  secret: process.env.SECRET || "mysupersecretcode",
   resave: false,
   saveUninitialized: true,
   cookie:  {
