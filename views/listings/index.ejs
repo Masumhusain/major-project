@@ -1,0 +1,39 @@
+<!-- <% layout("layouts/boilerplate") %>
+<body>
+    <h3 class="head-title ml-1">All listing here</h3>
+   <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <%for( let listing of allListing) {%>
+    <div class="card-listing col card-open m-4">
+      <a href="/listings/<%=listing._id%>" >  <img src="<%=listing.image.url%>" class="card-img-top" alt="listing_image">
+        <div class="card-body">
+            <p><b><%=listing.title %></b></p>
+            <p>  &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %> /night</p>
+        </div></a>
+      </div>
+      <% } %>
+   </div>
+</body> -->
+
+
+
+<% layout("layouts/boilerplate") %>
+<body>
+  <h3 class="head-title ml-1 my-3">All listing here</h3>
+  <div class="container">
+    <div class="row g-4">
+      <% for(let listing of allListing) { %>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card shadow-sm border-0 h-100" style="border-radius:18px;">
+            <a href="/listings/<%= listing._id %>" style="text-decoration:none; color:inherit;">
+              <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="border-radius:18px 18px 0 0;">
+              <div class="card-body">
+                <p class="fw-bold mb-1"><%= listing.title %></p>
+                <p class="mb-0 text-muted">&#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %> /night</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</body>
